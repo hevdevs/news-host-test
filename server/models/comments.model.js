@@ -8,7 +8,6 @@ exports.insertComment = (article_id, username, body) => {
 		),
 		db.query(`SELECT * FROM users WHERE username = $1`, [username]),
 	]).then((response) => {
-		console.log(response);
 		if (response[0].rows.length === 0)
 			return Promise.reject({
 				status: 404,

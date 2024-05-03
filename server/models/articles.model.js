@@ -18,9 +18,9 @@ exports.selectArticles = (topic, sortBy = "created_at", order = "DESC") => {
 	if (!validSort.includes(sortBy)) {
 		return Promise.reject({ status: 404, msg: "Not found" });
 	}
-	// if (!validOrder.includes(order)) {
-	// 	return Promise.reject({ status: 400, msg: 'Bad request' });
-	// }
+	if (!validOrder.includes(order)) {
+		return Promise.reject({ status: 400, msg: "Bad request" });
+	}
 	const queries = [];
 	const queryVals = [];
 
@@ -78,9 +78,9 @@ exports.selectArticleComments = (req) => {
 };
 
 exports.updateArticle = ({ inc_votes }, { article_id }) => {
-	// if (inc_votes !== 1 && inc_votes !== -1) {
-	// 	return Promise.reject({ status: 400, msg: "Invalid input" });
-	// }
+	if (inc_votes !== 1 && inc_votes !== -1) {
+		return Promise.reject({ status: 400, msg: "Invalid input" });
+	}
 
 	return db
 		.query(

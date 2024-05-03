@@ -36,7 +36,7 @@ describe("GET /api/topics", () => {
 });
 
 describe("GET /api/articles", () => {
-	test.only("200: responds with array of article objects", () => {
+	test("200: responds with array of article objects", () => {
 		return request(app)
 			.get("/api/articles")
 			.expect(200)
@@ -89,12 +89,11 @@ describe("GET /api/articles", () => {
 				});
 			});
 	});
-	test.only("200: takes sort by query", () => {
+	test("200: takes sort by query", () => {
 		return request(app)
 			.get("/api/articles?sort_by=comment_count")
 			.expect(200)
 			.then(({ body }) => {
-				console.log(body.articles);
 				expect(body.articles).toBeSortedBy("comment_count", {
 					descending: "true",
 				});
@@ -139,10 +138,10 @@ describe("GET /api/articles", () => {
 	});
 });
 
-describe.only("GET /api/articles/:article_id", () => {
-	test.only("200: responds with single article object", () => {
+describe("GET /api/articles/:article_id", () => {
+	test("200: responds with single article object", () => {
 		return request(app)
-			.get("/apiygigigo")
+			.get("/api/articles/1")
 			.expect(200)
 			.then(({ body }) => {
 				expect(typeof body.article).toBe("object");
