@@ -3,12 +3,11 @@ const {
 	selectArticleComments,
 	selectArticles,
 	updateArticle,
-	insertComment,
-	removeComment,
 } = require('../models/articles.model');
 
 exports.getArticleById = (req, res, next) => {
 	const { article_id } = req.params;
+
 	selectArticleById(article_id)
 		.then((article) => {
 			res.status(200).send({ article });
@@ -19,8 +18,11 @@ exports.getArticleById = (req, res, next) => {
 };
 
 exports.getArticles = (req, res, next) => {
-	selectArticles().then((articles) => {
+	const { topic, sort_by, order } = req.query;
+	selectArticles(topic, sort_by, order).then((articles) => {
 		res.status(200).send({ articles });
+	}).catch((err) => {
+		next(err)
 	});
 };
 
@@ -42,20 +44,3 @@ exports.patchArticle = (req, res, next) => {
 		.catch((err) => next(err));
 };
 
-exports.postComment = (req, res, next) => {
-	insertComment()
-		.then((comment) => {
-			res.status(201).send({ comment });
-		})
-		.catch((err) => next(err));
-};
-
-exports.deleteComment = (req, res, next) => {
-	removeComment(req.params)
-		.then(() => {
-			res.status(204).send({ msg: `Comment deleted!` });
-		})
-		.catch((err) => {
-			next(err);
-		});
-};
