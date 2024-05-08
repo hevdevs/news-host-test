@@ -1,7 +1,7 @@
 const db = require("../../db/connection");
 const { checkExists, checkTopicExists } = require("../../utils/utils");
 
-exports.selectArticles = (topic, sortBy = "created_at", order = "DESC") => {
+exports.selectArticles = (topic, sortBy = "created_at", order = "DESC", p) => {
 	order = order.toUpperCase();
 	// nice to validate sort by/order with a util func but cba with handling more promises
 	const validSort = [
