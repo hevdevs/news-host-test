@@ -1,7 +1,7 @@
 const db = require("../../db/connection");
 const { checkExists, checkTopicExists } = require("../../utils/utils");
 
-exports.selectArticles = (topic, sortBy = "created_at", order = "DESC", p) => {
+exports.selectArticles = (topic, sortBy = "created_at", order = "DESC") => {
 	order = order.toUpperCase();
 	// nice to validate sort by/order with a util func but cba with handling more promises
 	const validSort = [
@@ -35,7 +35,7 @@ exports.selectArticles = (topic, sortBy = "created_at", order = "DESC", p) => {
 
 	queryStr += ` GROUP BY articles.article_id ORDER BY ${sortBy} ${order}`;
 	if (p) {
-		queryStr += ` LIMIT ${p}`;
+		queryStr += ` LIMIT 10 OFFSET (${10 * p - 10})`;
 		queryVals.push(p);
 	}
 	console.log(queryStr);
