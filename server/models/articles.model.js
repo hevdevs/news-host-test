@@ -36,7 +36,6 @@ exports.selectArticles = (topic, sortBy = "created_at", order = "DESC", p) => {
 	queryStr += ` GROUP BY articles.article_id ORDER BY ${sortBy} ${order}`;
 	if (p) {
 		queryStr += ` LIMIT 10 OFFSET ((10 * ${p}) - 10)`;
-		queryVals.push(p);
 	}
 	console.log(queryStr);
 	queries.push(db.query(queryStr, queryVals));

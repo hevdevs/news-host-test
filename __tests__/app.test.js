@@ -71,12 +71,12 @@ describe("GET /api/articles", () => {
 				expect(body.articles.length).toBe(1);
 			});
 	});
-	test("200: good topic", () => {
+	test("200: pages", () => {
 		return request(app)
-			.get("/api/articles?topic=mitch")
+			.get("/api/articles?p=1")
 			.expect(200)
 			.then(({ body }) => {
-				expect(body.articles.length).toBe(11);
+				expect(body.articles.length).toBe(10);
 			});
 	});
 	test("200: articles should be sorted by date in descending order", () => {
